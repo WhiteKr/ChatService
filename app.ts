@@ -6,22 +6,25 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-io.on('connection', (socket: any): void => {
-    console.log(`${socket.id} connected`);
+const PORT = 3000;
 
-    socket.emit('connection', {
-        data: {
-            result: 'success',
-            message: 'Hello from the server',
-        }
+io.on('connection', (client: any): void => {
+
+    io.emit('join', `${client.handshake.query.name} 님이 접속했습니다.`);
+    console.log(`${client.handshake.query.name} 님이 접속했습니다.`);
+
+    client.on('disconnect', () => {
+        console.log(`${client.handshake.query.name} 님이 접속을 종료했습니다.`)
+        io.emit('left', `${client.handshake.query.name} 님이 접속을 종료했습니다.`);
     });
 
-    socket.on('disconnect', (): void => {
-        console.log(`${socket.id} disconnected`);
+    client.on('message', (str: string) => {
+        console.log(str);
+        client.broadcast.emit('message', str);
     });
+
 });
 
-const PORT: number = 3000;
 server.listen(PORT, (): void => {
     console.log(`listening on *:${PORT}`);
 });
