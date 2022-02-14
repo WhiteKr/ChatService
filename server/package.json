@@ -2,11 +2,12 @@
   "scripts": {
     "start": "tsc && node ./dist/app.js"
   },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.17"
+  },
   "dependencies": {
     "express": "^4.17.2",
     "socket.io": "^4.4.1"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.13"
   }
 }
