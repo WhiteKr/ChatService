@@ -17,3 +17,5 @@ Run `npm start` to use the service.
 
 Android application for the chat service.\
 Start application to use the service.
+
+The application files are on [aother repository](https://github.com/whitekr/chatservice-android).
